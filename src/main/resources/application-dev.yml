@@ -42,22 +42,23 @@ spring:
       connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
       useGlobalDataSourceStat: true
 
-  # Redis配置
+  # spring-boot-starter-data-redis配置
   redis:
     host: 127.0.0.1
     port: 6379
     password:
-    database: 8
-    timeout: 10 # 超时
+    database: 0
+    timeout: 20000ms # 超时
     lettuce:
       pool:
-        max-idle: 500
-        min-idle: 8
+        max-idle: 8
+        min-idle: 0
         max-active: 8
-        max-wait: 1
+        max-wait: -1
     cluster:
       nodes: 127.0.0.1:6379
       maxRedirects: 6
+
   # rabbitmq基本配置
   rabbitmq:
     host: 127.0.0.1

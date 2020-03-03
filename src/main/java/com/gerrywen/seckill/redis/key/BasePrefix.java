@@ -1,4 +1,4 @@
-package com.gerrywen.seckill.third.redis.key;
+package com.gerrywen.seckill.redis.key;
 
 /**
  * program: spring-boot-seckill->BasePrefix
