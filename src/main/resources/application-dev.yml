@@ -48,13 +48,13 @@ spring:
     port: 6379
     password:
     database: 8
-    timeout: 20000ms # 超时
+    timeout: 10 # 超时
     lettuce:
       pool:
-        max-idle: 8
-        min-idle: 0
+        max-idle: 500
+        min-idle: 8
         max-active: 8
-        max-wait: -1ms
+        max-wait: 1
     cluster:
       nodes: 127.0.0.1:6379
       maxRedirects: 6
