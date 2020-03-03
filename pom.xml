@@ -32,6 +32,7 @@
         <tk.mybatis.version>2.1.5</tk.mybatis.version>
         <mysql.connector.version>8.0.16</mysql.connector.version>
         <fastjson.version>1.2.58</fastjson.version>
+        <hutool.version>5.1.5</hutool.version>
     </properties>
 
 
@@ -150,6 +151,16 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
+        <!-- Java基础工具类，对文件、流、加密解密、转码、正则、线程、XML等JDK方法进行封装，组成各种Util工具类
+             https://github.com/looly/hutool
+        -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool.version}</version>
         </dependency>
 
     </dependencies>
