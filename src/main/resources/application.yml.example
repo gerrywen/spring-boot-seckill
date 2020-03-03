@@ -1,0 +1,35 @@
+spring:
+  profiles:
+    active: dev #默认为开发环境
+  #thymeleaf
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false
+    enabled: true
+    encoding: UTF-8
+    mode: HTML5
+    servlet:
+      content-type: text/html
+  #static
+  resources:
+    add-mappings: true
+    static-locations: classpath:/static/
+    chain:
+      cache: true
+      enabled: true
+      html-application-cache: true
+      compressed: true
+    cache:
+      period: 3600
+# mybatis
+mybatis:
+  type-aliases-package: com.gerrywen.seckill.domain
+  configuration:
+    default-fetch-size: 100
+    default-statement-timeout: 3000
+    map-underscore-to-camel-case: true # 整合mybatis开启驼峰法命名转换
+  mapper-locations:
+    - classpath:dao/*.xml
+    - classpath*:com/**/mapper/*.xml
+
