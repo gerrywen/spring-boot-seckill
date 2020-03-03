@@ -1,0 +1,102 @@
+# 服务配置
+server:
+  address: 0.0.0.0
+  port: 3838
+  servlet:
+    context-path: /
+# 平台id
+platform:
+  id: Gerrywen.Seckill
+
+
+
+spring:
+  # druid
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/seckill?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 100 #连接池初始化大小
+      min-idle: 500 #最小空闲连接数
+      max-active: 1000 #最大连接数
+      max-wait: 60000
+      web-stat-filter:
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*" #不统计这些请求数据
+        enabled: true
+      stat-view-servlet: #访问监控网页的登录用户名和密码
+        login-username: druid
+        login-password: druid
+        enabled: true
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: select 'x'
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 20
+      filters: stat,wall,slf4j
+      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      useGlobalDataSourceStat: true
+
+  # Redis配置
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password:
+    database: 8
+    timeout: 20000ms # 超时
+    lettuce:
+      pool:
+        max-idle: 8
+        min-idle: 0
+        max-active: 8
+        max-wait: -1ms
+    cluster:
+      nodes: 127.0.0.1:6379
+      maxRedirects: 6
+  # rabbitmq基本配置
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+    publisher-confirms: true
+    publisher-returns: true
+    listener: # https://www.cnblogs.com/shihaiming/p/11023106.html
+      direct:
+        retry:
+          enabled: true
+      simple:
+        retry:
+          max-attempts: 3
+        concurrency: 10  # 消费者数量
+        max-concurrency: 10
+        prefetch: 1 # 消费者每次从队列获取的消息数量
+        auto-startup: true #消费者自动启动
+        default-requeue-rejected: true #消费失败，自动重新入队
+    template: #启用发送重试
+      mandatory: true
+      retry:
+        enabled: true
+        initial-interval: 1000
+        max-attempts: 3
+        max-interval: 10000
+        multiplier: 1.0
+
+
+logging:
+  level:
+    root: ERROR #日志配置DEBUG,INFO,WARN,ERROR
+    com.gerrywen.seckill: debug
+#  file: demo_log.log #配置日志生成路径
+#  path: /var/logs #配置日志文件名称
+
+
+# 项目一些基本配置
+app:
+  debug: true
