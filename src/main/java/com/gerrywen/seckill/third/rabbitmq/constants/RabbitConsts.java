@@ -9,6 +9,9 @@ package com.gerrywen.seckill.third.rabbitmq.constants;
 public interface RabbitConsts {
 
     /**
+     * RabbitMQ的三种模式-----直接模式（Direct）
+     * 我们需要将消息发给唯一一个节点时使用这种模式，这是简单的一种形式。
+     *
      * 直接模式1
      */
     String DIRECT_MODE_QUEUE_ONE = "queue.direct.1";
@@ -24,11 +27,17 @@ public interface RabbitConsts {
     String QUEUE_THREE = "3.queue";
 
     /**
+     * RabbitMQ的三种模式-----分列模式（Fanout）
+     * 当我们需要将消息一次发给多个队列时，需要使用这种模式
+     *
      * 分列模式
      */
     String FANOUT_MODE_QUEUE = "fanout.mode";
 
     /**
+     * RabbitMQ的三种模式-----主题模式(Topic)
+     * 任何发送到Topic Exchange的消息都会被转发到所有关心RouteKey中指定话题的Queue上
+     *
      * 主题模式
      */
     String TOPIC_MODE_QUEUE = "topic.mode";

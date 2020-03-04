@@ -37,11 +37,13 @@ public class RabbitMqConfig {
         return rabbitTemplate;
     }
 
+    // RabbitMQ的三种模式-----直接模式（Direct）, 这种模式下不需要将Exchange进行任何绑定(binding)操作
     /**
      * 直接模式队列1
      */
     @Bean
     public Queue directOneQueue() {
+        // 第二参数为空，代表没有持久化
         return new Queue(RabbitConsts.DIRECT_MODE_QUEUE_ONE);
     }
 
@@ -61,6 +63,8 @@ public class RabbitMqConfig {
         return new Queue(RabbitConsts.QUEUE_THREE);
     }
 
+    // RabbitMQ的三种模式-----分列模式（Fanout）
+    // 这种模式需要提前将Exchange与Queue进行绑定，一个Exchange可以绑定多个 Queue，一个Queue可以同多个Exchange进行绑定。多对多的关系。
     /**
      * 分列模式队列
      */
@@ -91,6 +95,7 @@ public class RabbitMqConfig {
         return BindingBuilder.bind(queueTwo).to(fanoutExchange);
     }
 
+    // RabbitMQ的三种模式-----主题模式(Topic)
     /**
      * 主题模式队列
      * <li>路由格式必须以 . 分隔，比如 user.email 或者 user.aaa.email</li>
