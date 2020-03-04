@@ -19,6 +19,9 @@ import org.springframework.test.context.junit4.SpringRunner;
  * docker环境下RabbitMQ实现延迟队列(使用delay插件,非死信队列), 注意版本要和rabbitmq一致
  * https://www.jianshu.com/p/197715cea172
  *
+ * Spring Boot整合RabbitMQ详细教程
+ * https://blog.csdn.net/yuyeqianhen/article/details/94594711
+ *
  * @author wenguoli
  * @date 2020/3/4 9:50
  */
