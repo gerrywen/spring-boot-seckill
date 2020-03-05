@@ -19,4 +19,8 @@ public class UserKey {
     public static final String USER_NAME_KEY_PREFIX = "seckill:user:name";
 
 
+    /**
+     * 用户token
+     */
+    public static final String USER_TOKEN_KEY_PREFIX = "seckill:user:token";
 }
