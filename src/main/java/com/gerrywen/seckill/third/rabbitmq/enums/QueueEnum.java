@@ -1,11 +1,14 @@
 package com.gerrywen.seckill.third.rabbitmq.enums;
 
+import lombok.Getter;
+
 /**
  * description:
  *
  * @author wenguoli
  * @date 2020/3/4 17:34
  */
+@Getter
 public enum QueueEnum {
 
     /**
