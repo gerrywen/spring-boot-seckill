@@ -8,6 +8,7 @@ import com.gerrywen.seckill.third.rabbitmq.declare.AmQueueDeclare;
 import com.gerrywen.seckill.third.rabbitmq.enums.ModeExchangeEnum;
 import com.gerrywen.seckill.third.rabbitmq.exception.MqException;
 import com.gerrywen.seckill.third.rabbitmq.message.MqMessage;
+import com.gerrywen.seckill.third.rabbitmq.properties.RabbitProperties;
 import com.gerrywen.seckill.third.rabbitmq.util.UUIDUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +18,6 @@ import org.springframework.amqp.core.MessagePostProcessor;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.PostConstruct;
@@ -190,8 +190,7 @@ public abstract class AbstractSendService<T> implements RabbitTemplate.ConfirmCa
      * true: 调用returnCallback回调函数
      * false： 不调用returnCallback回调函数 这样在匹配不上对应的队列时，会导致消息丢失
      */
-//    @Value("${spring.message.mandatory:false}  ")
-    private Boolean mandatory = false;
+    private Boolean mandatory = RabbitProperties.mandatory;
 
     @PostConstruct
     public final void init() {

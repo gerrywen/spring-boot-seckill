@@ -1,5 +1,6 @@
 package com.gerrywen.seckill.third.rabbitmq.thread;
 
+import com.gerrywen.seckill.third.rabbitmq.properties.RabbitProperties;
 import com.gerrywen.seckill.third.rabbitmq.request.Request;
 import com.gerrywen.seckill.third.rabbitmq.request.RequestQueue;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
@@ -25,19 +26,16 @@ public class RequestThreadPool {
     /**
      * 核心线程数
      */
-//    @Value("${request.queue.corePoolSize:10}")
-    private Integer corePoolSize = 10;
+    private Integer corePoolSize = RabbitProperties.corePoolSize;
     /**
      * 线程池最大线程数
      */
-//    @Value("${request.queue.maximumPoolSize:20}")
-    private Integer maximumPoolSize = 20;
+    private Integer maximumPoolSize = RabbitProperties.maximumPoolSize;
 
     /**
      * 线程最大存活时间
      */
-//    @Value("${request.queue.keepAliveTime:60}")
-    private Long keepAliveTime = 60L;
+    private Long keepAliveTime = RabbitProperties.keepAliveTime;
 
     /**
      * 初始化线程池 这里我们不使用Executors.newFixedThreadPool()方式，该种方式不推荐使用，

@@ -8,12 +8,12 @@ import com.gerrywen.seckill.third.rabbitmq.declare.AmQueueDeclare;
 import com.gerrywen.seckill.third.rabbitmq.enums.ModeExchangeEnum;
 import com.gerrywen.seckill.third.rabbitmq.listen.AbstractMessageHandler;
 import com.gerrywen.seckill.third.rabbitmq.listen.MessageListen;
+import com.gerrywen.seckill.third.rabbitmq.properties.RabbitProperties;
 import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.Binding;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 
 import java.util.Map;
@@ -37,8 +37,7 @@ public abstract class AbstractReceiverHandler<T> {
     @Autowired
     MessageListen messageListen;
 
-//    @Value("${spring.rabbitmq.queue.isAck:false}")
-    private Boolean isAck = false;
+    private Boolean isAck = RabbitProperties.isAck;
 
     /**
      * 子类提供自定义的消息监听

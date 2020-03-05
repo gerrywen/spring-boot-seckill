@@ -2,6 +2,7 @@ package com.gerrywen.seckill.third.rabbitmq.listen;
 
 import com.alibaba.fastjson.JSON;
 import com.gerrywen.seckill.third.rabbitmq.message.MqMessage;
+import com.gerrywen.seckill.third.rabbitmq.properties.RabbitProperties;
 import com.google.common.reflect.TypeToken;
 import com.rabbitmq.client.Channel;
 import org.slf4j.Logger;
@@ -30,8 +31,7 @@ public abstract class AbstractMessageHandler<T> implements ChannelAwareMessageLi
 
     public final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    //    @Value("${spring.message.queue.retryTimes:5}")
-    private Integer retryTimes = 5;
+    private Integer retryTimes = RabbitProperties.retryTimes;
 
     /**
      * 用户自定义消息处理
@@ -102,7 +102,7 @@ public abstract class AbstractMessageHandler<T> implements ChannelAwareMessageLi
         AcknowledgeMode ack = this.ackMap.get(queue);
         if (ack.isManual()) {
             //重试5次
-            int retryTimes = 5;
+//            int retryTimes = 5;
             //进行消息
             RetryTemplate oRetryTemplate = new RetryTemplate();
             SimpleRetryPolicy oRetryPolicy = new SimpleRetryPolicy();
