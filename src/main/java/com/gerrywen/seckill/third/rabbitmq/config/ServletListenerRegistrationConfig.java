@@ -20,8 +20,12 @@ public class ServletListenerRegistrationConfig {
      * 注册自定义的Bean
      * 并且设置监听器，该监听器初始化线程池
      *
-     * @return
+     * 通过代码 注册Listener
+     *
+     * SpringBoot注册Servlet Filter Listener三大组件:
+     * https://www.jianshu.com/p/6830989985e9
      */
+    @SuppressWarnings("unchecked") // 编译器忽略 unchecked 警告信息
     @Bean
     public ServletListenerRegistrationBean registrationBean() {
         ServletListenerRegistrationBean servletListenerRegistrationBean = new ServletListenerRegistrationBean();

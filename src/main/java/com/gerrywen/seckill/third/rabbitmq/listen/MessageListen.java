@@ -20,8 +20,13 @@ public class MessageListen<T> {
 
     public final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    private final ConnectionFactory connectionFactory;
+
     @Autowired
-    private ConnectionFactory connectionFactory;
+    public MessageListen(ConnectionFactory connectionFactory) {
+        // 使用构造器注入的方法，可以明确成员变量的加载顺序。
+        this.connectionFactory = connectionFactory;
+    }
 
     /**
      * 在容器中加入消息监听
@@ -44,6 +49,6 @@ public class MessageListen<T> {
         MessageListenerAdapter adapter = new MessageListenerAdapter(messageHandler);
         container.setMessageListener(adapter);
         container.start();
-        this.logger.info("------ 已成功监听异步消息触发通知队列：" + queue + " ------");
+        logger.info("------ 已成功监听异步消息触发通知队列：" + queue + " ------");
     }
 }

@@ -18,8 +18,12 @@ import java.util.Map;
  */
 @Component
 public class AmBindDeclare extends AbstractDeclare {
+    private final RabbitAdmin rabbitAdmin;
+
     @Autowired
-    RabbitAdmin rabbitAdmin;
+    public AmBindDeclare(RabbitAdmin rabbitAdmin) {
+        this.rabbitAdmin = rabbitAdmin;
+    }
 
     /**
      * 队列与交换机进行绑定
