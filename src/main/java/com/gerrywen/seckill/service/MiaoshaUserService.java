@@ -43,7 +43,34 @@ public class MiaoshaUserService {
 
 
     public MiaoshaUser getById(long id) {
-        return miaoshaUserDao.getById(id);
+        MiaoshaUser user = redisService.get(CtimsModelEnum.CTIMS_USER_CAP, UserKey.USER_ID_KEY_PREFIX + id, MiaoshaUser.class);
+        if (user != null) {
+            return user;
+        }
+        //取数据库
+        user = miaoshaUserDao.getById(id);
+        if (user != null) {
+            redisService.set(CtimsModelEnum.CTIMS_USER_CAP, UserKey.USER_ID_KEY_PREFIX + id, user, 7200);
+        }
+        return user;
+    }
+
+    public boolean updatePassword(String token, long id, String formPass) {
+        //取user
+        MiaoshaUser user = getById(id);
+        if (user == null) {
+            throw new GlobalException(CodeMsg.MOBILE_NOT_EXIST);
+        }
+        //更新数据库
+        MiaoshaUser toBeUpdate = new MiaoshaUser();
+        toBeUpdate.setId(id);
+        toBeUpdate.setPassword(MD5Util.formPassToDBPass(formPass, user.getSalt()));
+        miaoshaUserDao.update(toBeUpdate);
+        //处理缓存
+        redisService.del(CtimsModelEnum.CTIMS_USER_CAP, UserKey.USER_ID_KEY_PREFIX + id);
+        user.setPassword(toBeUpdate.getPassword());
+        redisService.set(CtimsModelEnum.CTIMS_USER_CAP, UserKey.USER_TOKEN_KEY_PREFIX + token, user, 7200);
+        return true;
     }
 
     public MiaoshaUser getByToken(HttpServletResponse response, String token) {
@@ -58,7 +85,7 @@ public class MiaoshaUserService {
         return user;
     }
 
-    public boolean login(HttpServletResponse response, LoginDTO loginDTO) {
+    public String login(HttpServletResponse response, LoginDTO loginDTO) {
         if (loginDTO == null) {
             throw new GlobalException(CodeMsg.SERVER_ERROR);
         }
@@ -80,12 +107,12 @@ public class MiaoshaUserService {
         //生成cookie
         String token = UUIDUtil.uuid();
         addCookie(response, token, user);
-        return true;
+        return token;
 
     }
 
     private void addCookie(HttpServletResponse response, String token, MiaoshaUser user) {
-        redisService.set(CtimsModelEnum.CTIMS_USER_CAP, UserKey.USER_TOKEN_KEY_PREFIX + token, user);
+        redisService.set(CtimsModelEnum.CTIMS_USER_CAP, UserKey.USER_TOKEN_KEY_PREFIX + token, user, 7200);
         Cookie cookie = new Cookie(COOKI_NAME_TOKEN, token);
         cookie.setMaxAge(TOKEN_EXPIRE);
         cookie.setPath("/");

@@ -45,10 +45,10 @@ public class LoginController {
 
     @RequestMapping("/do_login")
     @ResponseBody
-    public Result<Boolean> doLogin(HttpServletResponse response, @Valid LoginDTO loginDTO) {
+    public Result<String> doLogin(HttpServletResponse response, @Valid LoginDTO loginDTO) {
         log.info(loginDTO.toString());
         //登录
-        userService.login(response, loginDTO);
-        return Result.success(true);
+        String token = userService.login(response, loginDTO);
+        return Result.success(token);
     }
 }

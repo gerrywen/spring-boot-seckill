@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 public enum CtimsModelEnum {
     CTIMS_COMM_CAP("comm", "公共"),
     CTIMS_ORDER_CAP("order", "订单"),
+    CTIMS_GOODS_CAP("goods", "商品"),
     CTIMS_SECKILL_CAP("seckill", "秒杀"),
     CTIMS_USER_CAP("user", "用户"),
     CTIMS_CACHE_AOP_CAP("cache:aop", "切面缓存");
