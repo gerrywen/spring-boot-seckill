@@ -15,4 +15,8 @@ public class GoodsKey {
 
     // 60
     public static final String GOODS_DETAIL_KEY_PREFIX = "seckill:goods:gd";
+
+
+    // 60
+    public static final String GOODS_STOCK_KEY_PREFIX = "seckill:goods:gs";
 }

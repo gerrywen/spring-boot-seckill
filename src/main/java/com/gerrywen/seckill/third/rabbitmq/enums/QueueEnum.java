@@ -18,9 +18,12 @@ public enum QueueEnum {
     /**
      * 队列2
      */
-    QUEUE_TWO("queue.2", "queue.2", "queue.2");
+    QUEUE_TWO("queue.2", "queue.2", "queue.2"),
 
-
+    /**
+     * 队列2
+     */
+    MIAOSHA_MODE_QUEUE("miaosha.1", "miaosha.1", "miaosha.1");
 
     /**
      * 交换名称
