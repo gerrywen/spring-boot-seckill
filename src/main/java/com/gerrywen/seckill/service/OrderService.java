@@ -29,8 +29,14 @@ public class OrderService {
     RedisService redisService;
 
     public MiaoshaOrder getMiaoshaOrderByUserIdGoodsId(long userId, long goodsId) {
-        return redisService.get(CtimsModelEnum.CTIMS_ORDER_CAP,
+        MiaoshaOrder miaoshaOrder = redisService.get(CtimsModelEnum.CTIMS_ORDER_CAP,
                 OrderKey.ORDER_MIAOSHA_UID_GID_KEY_PREFIX + userId + "_" + goodsId, MiaoshaOrder.class);
+        if (miaoshaOrder == null) {
+            miaoshaOrder = orderDao.getMiaoshaOrderByUserIdGoodsId(userId, goodsId);
+            redisService.set(CtimsModelEnum.CTIMS_ORDER_CAP,
+                    OrderKey.ORDER_MIAOSHA_UID_GID_KEY_PREFIX + userId + "_" + goodsId, miaoshaOrder);
+        }
+        return miaoshaOrder;
     }
 
     public OrderInfo getOrderById(long orderId) {

@@ -60,12 +60,12 @@ public class MiaoshaMessageReceiverService extends AbstractReceiverHandler<Miaos
                 GoodsVO goods = goodsService.getGoodsVoByGoodsId(goodsId);
                 int stock = goods.getStockCount();
                 if (stock <= 0) {
-                    return false;
+                    return true;
                 }
                 //判断是否已经秒杀到了
                 MiaoshaOrder order = orderService.getMiaoshaOrderByUserIdGoodsId(user.getId(), goodsId);
                 if (order != null) {
-                    return false;
+                    return true;
                 }
                 //减库存 下订单 写入秒杀订单
                 miaoshaService.miaosha(user, goods);
