@@ -1,10 +1,14 @@
 package com.gerrywen.seckill.controller;
 
+import com.gerrywen.seckill.common.redislock.annotation.CacheLock;
+import com.gerrywen.seckill.common.redislock.annotation.CacheLockParam;
 import com.gerrywen.seckill.result.CodeMsg;
 import com.gerrywen.seckill.result.Result;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -45,4 +49,10 @@ public class DemoController {
         return "hello";
     }
 
+    @CacheLock(prefix = "cacheLock")
+    @RequestMapping("/cacheLock")
+    @ResponseBody
+    public String query(@CacheLockParam(name = "token") @RequestParam String token) {
+        return "success - " + token;
+    }
 }
